@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Title, Container, Button, ButtonContainer } from './styles';
 
 
 const App = () => {
   const [count, setCount] = useState(0)
 
-  const handleSub = () => {
+  useEffect(() => {
+    console.log('executei !!!')
+  }, [count])
+
+  // useCallback so executa quando o parametros do array são alterados
+  // tirando a primeira vez
+  const handleSub = useCallback(() => {
     if (count > 0) {
       setCount(count - 1)
     }
-  } 
+  }, [count])
 
-  const handleAdd = () => setCount(count + 1)
+  const handleAdd = useCallback(() => setCount(count + 1), [count]) 
 
   return (
     <Container>
