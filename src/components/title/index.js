@@ -3,7 +3,6 @@ import { Title } from './styles'
 
 
 const CustomTitle = ({ title, test1 }) => {
-  console.log({ title, test1 })
   return <Title>{title}</Title>
 }
 

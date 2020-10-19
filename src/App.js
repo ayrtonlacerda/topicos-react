@@ -25,17 +25,9 @@ const App = () => {
     <Container>
 
 
-      <CustomTitle title={count} test1='prop 1' />
+      <CustomTitle title='Nossa Aplicação' test1='prop 1' />
+      <Button color='#907f' onClick={(param) => console.log({ param })} />
 
-
-      <ButtonContainer>
-        {count > 0 && (
-          <Button color='#f92242' textButton='SUB' onClick={handleSub} />
-           
-        )}        
-        <Button color='#099222' textButton='ADD' onClick={handleAdd} />
-         
-      </ButtonContainer>     
     </Container>
   );
 }
