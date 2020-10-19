@@ -1,12 +1,14 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { Title, Container, Button, ButtonContainer } from './styles';
-
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import { Container,  ButtonContainer } from './styles';
+import { CustomTitle, Button } from './components'
 
 const App = () => {
   const [count, setCount] = useState(0)
 
+  // executa assim que o componente é montado ou
+  // quando o parametron no array e alterado
   useEffect(() => {
-    console.log('executei !!!')
+    //console.log('executei !!!')
   }, [count])
 
   // useCallback so executa quando o parametros do array são alterados
@@ -21,12 +23,18 @@ const App = () => {
 
   return (
     <Container>
-      <Title>{count}</Title>
+
+
+      <CustomTitle title={count} test1='prop 1' />
+
+
       <ButtonContainer>
         {count > 0 && (
-          <Button color='#f92242' onClick={handleSub}>SUB</Button>
+          <Button color='#f92242' textButton='SUB' onClick={handleSub} />
+           
         )}        
-        <Button color='#099222' onClick={handleAdd}>ADD</Button>
+        <Button color='#099222' textButton='ADD' onClick={handleAdd} />
+         
       </ButtonContainer>     
     </Container>
   );
