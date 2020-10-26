@@ -1,33 +1,32 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
-import { Container,  ButtonContainer } from './styles';
-import { CustomTitle, Button } from './components'
+import { Container, Card } from './styles';
+import { CustomTitle, Pokemon } from './components'
+import axios from 'axios'
 
 const App = () => {
-  const [count, setCount] = useState(0)
-
-  // executa assim que o componente é montado ou
-  // quando o parametron no array e alterado
-  useEffect(() => {
-    //console.log('executei !!!')
-  }, [count])
-
-  // useCallback so executa quando o parametros do array são alterados
-  // tirando a primeira vez
-  const handleSub = useCallback(() => {
-    if (count > 0) {
-      setCount(count - 1)
+  const [pokemons, setPokemons] = useState(null)
+  
+  const request = async () => {
+    try {
+      const response = await axios.get('https://pokeapi.co/api/v2/pokemon#')
+      setPokemons(response.data?.results)
+      console.log({ response })
+    } catch (error) {
+      console.log({ error })
     }
-  }, [count])
+  }
 
-  const handleAdd = useCallback(() => setCount(count + 1), [count]) 
+  useEffect(() => {
+    request()
+  },[])
 
   return (
     <Container>
-
-
-      <CustomTitle title='Nossa Aplicação' test1='prop 1' />
-      <Button color='#907f' onClick={(param) => console.log({ param })} />
-
+      {pokemons 
+        ? pokemons.map(pokemon => (
+          <Pokemon {...pokemon}/>
+        ))
+        : <CustomTitle>Ainda não tem pokemons</CustomTitle> }
     </Container>
   );
 }
