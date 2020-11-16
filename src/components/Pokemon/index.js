@@ -1,54 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Name, Image, DataContainer, Text, TextContainer } from './styles';
-import axios from 'axios'
+import React from 'react';
+import { Container, Name, DataContainer, Text, TextContainer } from './styles';
 
-const Pokemon = ({ name, url }) => {
-  const [data, setData] = useState(null);
+const Card = ({ title, link, description, tags }) => (
+  <Container>    
+    <DataContainer>
+      <Name>{title}</Name>
+          <TextContainer>
+            <Text>descrição: </Text>
+            <Text bold ml='5px'>{description}</Text>
+          </TextContainer>
+          <TextContainer>
+            <Text>link: </Text>
+            <a href={link}>{link}</a>
+          </TextContainer>      
+          <TextContainer>
+            <Text>ferramentas: </Text>
+            {tags.map((tag, index) =>  
+              <Text bold ml='5px'>
+                {index === tags.length - 1 ? `${tag}` : `${tag} - `}
+              </Text> 
+            )}
+          </TextContainer>
+    </DataContainer>
+  </Container>
+)
 
-  const request = async () => {
-    try {
-      const response = await axios.get(url)
-      setData(response.data)
-      console.log({ pokemon: response.data })
-    } catch (error) {
-      console.log({ error })
-    }
-  }
-
-  useEffect(() => {
-    request()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
-
-  return(
-     <Container>
-       {data && (
-         <Image 
-          src={data.sprites.other?.dream_world?.front_default || ''}          
-         />         
-       )}
-       <DataContainer>
-        <Name>{name}</Name>
-        {data && (
-          <>
-            <TextContainer>
-              <Text>Experiência: </Text>
-              <Text bold ml='5px'> {data.base_experience}</Text>
-            </TextContainer>
-            <TextContainer>
-              <Text>Altura: </Text>
-              <Text bold ml='5px'> {data.height}</Text>
-            </TextContainer>
-            <TextContainer>
-              <Text>Nº de habilidades: </Text>
-              <Text bold ml='5px'> {data.abilities.length}</Text>
-            </TextContainer>
-          </>
-        )}
-        
-       </DataContainer>
-     </Container>
-  );
-}
-
-export default Pokemon;
+export default Card;

@@ -28,7 +28,8 @@ export const Name = styled.p`
 export const Text = styled.p`
   font-size: 16px;
   font-weight: ${({ bold }) => bold ? 'bold' : 'regular'};
-  margin-left: ${({ ml }) => ml || 0}
+  margin-left: ${({ ml }) => ml || 0};
+  line-height: 0;
 `
 export const TextContainer = styled.div`
   display: flex;
